@@ -3,108 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="TLS Cert Expiry Radar - Monitor SSL/TLS certificates and prevent outages">
+    <title>TLS Certificate Expiry Radar</title>
+    <meta name="description" content="Monitor and track SSL/TLS certificate expiry dates with interactive radar charts, timeline views, and global mapping.">
     <meta name="author" content="Ali AlEnezi">
-    <title>TLS Cert Expiry Radar - Live Demo</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="container header-content">
-            <div class="logo">
-                <span class="logo-icon">🛡️</span>
-                <h1 class="logo-text">TLS Cert Expiry Radar</h1>
+        <nav class="nav container">
+            <div class="nav__brand">
+                <h1 class="nav__logo">🛡️ TLS Radar</h1>
             </div>
-            <nav class="nav">
-                <a href="#dashboard" class="nav-link active">Dashboard</a>
-                <a href="#timeline" class="nav-link">Timeline</a>
-                <a href="#map" class="nav-link">Map</a>
-                <a href="https://github.com/SiteQ8/tls-cert-expiry-radar" target="_blank" class="nav-link">GitHub</a>
-            </nav>
-            <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="#dashboard" class="nav__link">Dashboard</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#timeline" class="nav__link">Timeline</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#map" class="nav__link">Map</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="https://github.com/SiteQ8/tls-cert-expiry-radar" target="_blank" class="nav__link">GitHub</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="nav__toggle" id="nav-toggle">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-        </div>
+        </nav>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <div class="hero-content">
-                <div class="badge">🚀 Live Demo with Sample Data</div>
-                <h2 class="hero-title">Never Let an SSL Certificate Catch You Off-Guard</h2>
-                <p class="hero-subtitle">Monitor, visualize, and get alerted before your certificates expire. Zero installation. Mobile-first. Open source.</p>
-                <div class="hero-buttons">
-                    <button onclick="scanDomains()" class="btn btn-primary">🔍 Scan Certificates</button>
-                    <a href="https://github.com/SiteQ8/tls-cert-expiry-radar" target="_blank" class="btn btn-secondary">⭐ Star on GitHub</a>
+            <div class="hero__content">
+                <h1 class="hero__title">TLS Certificate Expiry Radar</h1>
+                <p class="hero__subtitle">Monitor, track, and manage SSL/TLS certificate expiry dates with powerful visualizations and real-time alerts.</p>
+                <div class="hero__actions">
+                    <button class="btn btn--primary btn--lg" id="scan-btn">
+                        <span class="btn__icon">🔍</span>
+                        Scan Certificates
+                    </button>
+                    <a href="https://github.com/SiteQ8/tls-cert-expiry-radar" target="_blank" class="btn btn--outline btn--lg">
+                        <span class="btn__icon">⭐</span>
+                        Star on GitHub
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Stats Bar -->
-    <section class="stats-bar">
+    <section class="stats">
         <div class="container">
-            <div class="stats-grid">
+            <div class="stats__grid">
                 <div class="stat-card">
-                    <div class="stat-value" id="totalCerts">0</div>
-                    <div class="stat-label">Total Certificates</div>
+                    <div class="stat-card__icon stat-card__icon--total">📊</div>
+                    <div class="stat-card__content">
+                        <div class="stat-card__number" id="total-certs">8</div>
+                        <div class="stat-card__label">Total Certificates</div>
+                    </div>
                 </div>
-                <div class="stat-card stat-safe">
-                    <div class="stat-value" id="safeCerts">0</div>
-                    <div class="stat-label">Safe (>60 days)</div>
+                
+                <div class="stat-card">
+                    <div class="stat-card__icon stat-card__icon--safe">✅</div>
+                    <div class="stat-card__content">
+                        <div class="stat-card__number" id="safe-certs">3</div>
+                        <div class="stat-card__label">Safe (&gt;60 days)</div>
+                    </div>
                 </div>
-                <div class="stat-card stat-warning">
-                    <div class="stat-value" id="warningCerts">0</div>
-                    <div class="stat-label">Warning (30-60 days)</div>
+                
+                <div class="stat-card">
+                    <div class="stat-card__icon stat-card__icon--warning">⚠️</div>
+                    <div class="stat-card__content">
+                        <div class="stat-card__number" id="warning-certs">3</div>
+                        <div class="stat-card__label">Warning (30-60 days)</div>
+                    </div>
                 </div>
-                <div class="stat-card stat-critical">
-                    <div class="stat-value" id="criticalCerts">0</div>
-                    <div class="stat-label">Critical (<30 days)</div>
+                
+                <div class="stat-card">
+                    <div class="stat-card__icon stat-card__icon--critical">🚨</div>
+                    <div class="stat-card__content">
+                        <div class="stat-card__number" id="critical-certs">2</div>
+                        <div class="stat-card__label">Critical (&lt;30 days)</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Main Dashboard -->
-    <section id="dashboard" class="section">
+    <!-- Radar Dashboard -->
+    <section id="dashboard" class="dashboard">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">📡 Expiry Radar</h2>
-                <p class="section-subtitle">Interactive visualization of certificate expiration timeline</p>
+                <h2 class="section-title">Certificate Expiry Radar</h2>
+                <p class="section-subtitle">Visual overview of certificate health across your infrastructure</p>
             </div>
-            <div class="dashboard-grid">
-                <div class="card radar-card">
-                    <canvas id="radarChart"></canvas>
+            
+            <div class="dashboard__content">
+                <div class="radar-container">
+                    <canvas id="radar-chart"></canvas>
                 </div>
-                <div class="card legend-card">
-                    <h3 class="card-title">Legend</h3>
-                    <div class="legend-items">
-                        <div class="legend-item">
-                            <span class="legend-color safe"></span>
-                            <span>Safe Zone (>60 days)</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="legend-color warning"></span>
-                            <span>Warning Zone (30-60 days)</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="legend-color critical"></span>
-                            <span>Critical Zone (<30 days)</span>
+                
+                <div class="dashboard__sidebar">
+                    <div class="legend">
+                        <h3 class="legend__title">Status Legend</h3>
+                        <div class="legend__items">
+                            <div class="legend__item">
+                                <span class="legend__color legend__color--safe"></span>
+                                <span class="legend__label">Safe (&gt;60 days)</span>
+                            </div>
+                            <div class="legend__item">
+                                <span class="legend__color legend__color--warning"></span>
+                                <span class="legend__label">Warning (30-60 days)</span>
+                            </div>
+                            <div class="legend__item">
+                                <span class="legend__color legend__color--critical"></span>
+                                <span class="legend__label">Critical (&lt;30 days)</span>
+                            </div>
                         </div>
                     </div>
+                    
                     <div class="quick-actions">
-                        <h3 class="card-title">Quick Actions</h3>
-                        <button onclick="refreshData()" class="btn btn-small">🔄 Refresh Data</button>
-                        <button onclick="exportCSV()" class="btn btn-small">📥 Export CSV</button>
-                        <button onclick="configureAlerts()" class="btn btn-small">🔔 Configure Alerts</button>
+                        <h3 class="quick-actions__title">Quick Actions</h3>
+                        <button class="btn btn--secondary btn--sm btn--full-width" id="export-csv">
+                            📥 Export CSV
+                        </button>
+                        <button class="btn btn--secondary btn--sm btn--full-width" id="configure-alerts">
+                            🔔 Configure Alerts
+                        </button>
+                        <button class="btn btn--secondary btn--sm btn--full-width" id="refresh-data">
+                            🔄 Refresh Data
+                        </button>
                     </div>
                 </div>
             </div>
@@ -112,65 +151,76 @@
     </section>
 
     <!-- Timeline Section -->
-    <section id="timeline" class="section section-alt">
+    <section id="timeline" class="timeline">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">📅 Expiration Timeline</h2>
-                <p class="section-subtitle">Upcoming certificate renewals sorted by urgency</p>
+                <h2 class="section-title">Certificate Timeline</h2>
+                <p class="section-subtitle">Detailed view of certificates sorted by expiry urgency</p>
             </div>
-            <div id="timelineContainer" class="timeline-container"></div>
+            
+            <div class="timeline__content" id="timeline-content">
+                <!-- Certificate cards will be populated by JavaScript -->
+            </div>
         </div>
     </section>
 
     <!-- Map Section -->
-    <section id="map" class="section">
+    <section id="map" class="map-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">🌍 Global Certificate Map</h2>
-                <p class="section-subtitle">Geographic distribution of monitored certificates</p>
+                <h2 class="section-title">Global Certificate Distribution</h2>
+                <p class="section-subtitle">Interactive map showing certificate locations worldwide</p>
             </div>
-            <div class="card">
-                <div id="mapContainer" style="height: 500px; border-radius: 8px;"></div>
+            
+            <div class="map-container">
+                <div id="certificate-map"></div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="section section-alt">
+    <!-- Features Grid -->
+    <section class="features">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">✨ Features</h2>
+                <h2 class="section-title">Features</h2>
+                <p class="section-subtitle">Everything you need to monitor certificate health</p>
             </div>
-            <div class="features-grid">
+            
+            <div class="features__grid">
                 <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
-                    <h3>Automated Discovery</h3>
-                    <p>Scan DNS zones, CT logs, and third-party services automatically</p>
+                    <div class="feature-card__icon">📡</div>
+                    <h3 class="feature-card__title">Real-time Monitoring</h3>
+                    <p class="feature-card__description">Continuously monitor certificate expiry dates with automatic updates and notifications.</p>
                 </div>
+                
                 <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Visual Dashboard</h3>
-                    <p>Radar charts, timelines, and maps for instant insights</p>
+                    <div class="feature-card__icon">🎯</div>
+                    <h3 class="feature-card__title">Visual Radar</h3>
+                    <p class="feature-card__description">Interactive radar chart provides instant visual overview of certificate health status.</p>
                 </div>
+                
                 <div class="feature-card">
-                    <div class="feature-icon">🔔</div>
-                    <h3>Multi-Channel Alerts</h3>
-                    <p>Email, Slack, Teams, SMS, and GitHub integration</p>
+                    <div class="feature-card__icon">🌍</div>
+                    <h3 class="feature-card__title">Global Mapping</h3>
+                    <p class="feature-card__description">See certificate distribution across your global infrastructure on an interactive map.</p>
                 </div>
+                
                 <div class="feature-card">
-                    <div class="feature-icon">🤖</div>
-                    <h3>GitHub Actions</h3>
-                    <p>CI/CD integration for automated monitoring</p>
+                    <div class="feature-card__icon">📱</div>
+                    <h3 class="feature-card__title">Mobile First</h3>
+                    <p class="feature-card__description">Fully responsive design optimized for mobile devices with touch-friendly controls.</p>
                 </div>
+                
                 <div class="feature-card">
-                    <div class="feature-icon">📱</div>
-                    <h3>Mobile-First</h3>
-                    <p>Responsive design optimized for all devices</p>
+                    <div class="feature-card__icon">📊</div>
+                    <h3 class="feature-card__title">Export &amp; Reports</h3>
+                    <p class="feature-card__description">Export certificate data to CSV and generate detailed reports for compliance.</p>
                 </div>
+                
                 <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Privacy-Focused</h3>
-                    <p>Self-hosted or client-side operation available</p>
+                    <div class="feature-card__icon">🔔</div>
+                    <h3 class="feature-card__title">Smart Alerts</h3>
+                    <p class="feature-card__description">Configure intelligent alerts to notify you before certificates expire.</p>
                 </div>
             </div>
         </div>
@@ -179,44 +229,88 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h3>TLS Cert Expiry Radar</h3>
-                    <p>Open source certificate monitoring for everyone.</p>
-                    <div class="social-links">
-                        <a href="https://github.com/SiteQ8/tls-cert-expiry-radar" target="_blank" class="social-link">GitHub</a>
-                        <a href="https://www.linkedin.com/in/alenizi/" target="_blank" class="social-link">LinkedIn</a>
+            <div class="footer__content">
+                <div class="footer__section">
+                    <h3 class="footer__title">TLS Certificate Expiry Radar</h3>
+                    <p class="footer__description">Open-source certificate monitoring solution for modern infrastructure.</p>
+                </div>
+                
+                <div class="footer__section">
+                    <h4 class="footer__subtitle">Links</h4>
+                    <ul class="footer__links">
+                        <li><a href="#dashboard" class="footer__link">Dashboard</a></li>
+                        <li><a href="#timeline" class="footer__link">Timeline</a></li>
+                        <li><a href="#map" class="footer__link">Map</a></li>
+                        <li><a href="https://github.com/SiteQ8/tls-cert-expiry-radar" target="_blank" class="footer__link">GitHub Repository</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer__section">
+                    <h4 class="footer__subtitle">Contact</h4>
+                    <div class="footer__contact">
+                        <p class="footer__contact-item">
+                            <strong>Ali AlEnezi</strong>
+                        </p>
+                        <p class="footer__contact-item">
+                            📧 <a href="mailto:Site@hotmail.com" class="footer__link">Site@hotmail.com</a>
+                        </p>
+                        <p class="footer__contact-item">
+                            💼 <a href="https://www.linkedin.com/in/alenizi/" target="_blank" class="footer__link">LinkedIn Profile</a>
+                        </p>
                     </div>
                 </div>
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul class="footer-links">
-                        <li><a href="https://github.com/SiteQ8/tls-cert-expiry-radar#readme">Documentation</a></li>
-                        <li><a href="https://github.com/SiteQ8/tls-cert-expiry-radar/issues">Report Issues</a></li>
-                        <li><a href="https://github.com/SiteQ8/tls-cert-expiry-radar/discussions">Discussions</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <ul class="footer-links">
-                        <li>Ali AlEnezi</li>
-                        <li><a href="mailto:Site@hotmail.com">Site@hotmail.com</a></li>
-                        <li><a href="https://3li.info" target="_blank">3li.info</a></li>
-                    </ul>
-                </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Ali AlEnezi. Licensed under MIT License.</p>
+            
+            <div class="footer__bottom">
+                <p class="footer__copyright">
+                    &copy; 2024 Ali AlEnezi. Licensed under MIT License.
+                </p>
             </div>
         </div>
     </footer>
 
     <!-- Loading Overlay -->
-    <div id="loadingOverlay" class="loading-overlay">
-        <div class="spinner"></div>
-        <p>Scanning certificates...</p>
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Scanning certificates...</p>
+        </div>
     </div>
 
+    <!-- Alert Configuration Modal -->
+    <div class="modal" id="alert-modal">
+        <div class="modal__overlay"></div>
+        <div class="modal__content">
+            <div class="modal__header">
+                <h3 class="modal__title">Configure Alerts</h3>
+                <button class="modal__close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal__body">
+                <div class="form-group">
+                    <label class="form-label" for="warning-threshold">Warning Threshold (days)</label>
+                    <input type="number" class="form-control" id="warning-threshold" value="60" min="1" max="365">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="critical-threshold">Critical Threshold (days)</label>
+                    <input type="number" class="form-control" id="critical-threshold" value="30" min="1" max="365">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="email-notifications">
+                        <input type="checkbox" id="email-notifications" checked>
+                        Enable email notifications
+                    </label>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <button class="btn btn--secondary" id="modal-cancel">Cancel</button>
+                <button class="btn btn--primary" id="save-alerts">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
