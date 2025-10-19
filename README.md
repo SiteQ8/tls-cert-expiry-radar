@@ -7,7 +7,7 @@
 **Stay ahead of outages—never let an SSL certificate catch you off-guard.**
 
 [![Live Demo](https://img.shields.io/badge/🚀-Live_Demo-success?style=for-the-badge)](https://SiteQ8.github.io/tls-cert-expiry-radar)
-[![GitHub Stars](https://img.shields.io/github/stars/your-username/tls-cert-expiry-radar?style=for-the-badge)](https://github.com/your-username/tls-cert-expiry-radar/stargazers)
+[![GitHub Stars](https://img.shields.io/github/stars/SiteQ8/tls-cert-expiry-radar?style=for-the-badge)](https://github.com/SiteQ8/tls-cert-expiry-radar/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/alenizi/)
 
@@ -36,13 +36,13 @@ A **zero-install**, **browser-first** web application that continuously discover
 
 ### Try the Demo (No Installation)
 
-Visit **[https://your-username.github.io/tls-cert-expiry-radar](https://your-username.github.io/tls-cert-expiry-radar)** to explore the interactive demo with sample data.
+Visit **[https://SiteQ8.github.io/tls-cert-expiry-radar](https://SiteQ8.github.io/tls-cert-expiry-radar)** to explore the interactive demo with sample data.
 
 ### Run Locally
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/tls-cert-expiry-radar.git
+git clone https://github.com/SiteQ8/tls-cert-expiry-radar.git
 cd tls-cert-expiry-radar
 
 # Install dependencies
@@ -173,13 +173,13 @@ Geographic visualization of certificates by server location with real-time statu
 
 Deploy to Vercel with one click:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-username/tls-cert-expiry-radar)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/SiteQ8/tls-cert-expiry-radar)
 
 ### Option 2: Self-Hosted (Docker)
 
 ```bash
 # Clone repository
-git clone https://github.com/your-username/tls-cert-expiry-radar.git
+git clone https://github.com/SiteQ8/tls-cert-expiry-radar.git
 cd tls-cert-expiry-radar
 
 # Start with Docker Compose
@@ -194,7 +194,7 @@ Use as a monitoring tool without hosting:
 
 ```yaml
 - name: TLS Certificate Scanner
-  uses: your-username/tls-cert-expiry-radar@v1
+  uses: SiteQ8/tls-cert-expiry-radar@v1
   with:
     domains: 'example.com,*.example.com'
     notify-slack: ${{ secrets.SLACK_WEBHOOK }}
@@ -399,8 +399,8 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 ## 📞 Support
 
 - 📖 **Documentation**: [View Docs](docs/)
-- 💬 **GitHub Discussions**: [Ask Questions](https://github.com/your-username/tls-cert-expiry-radar/discussions)
-- 🐛 **Issues**: [Report Bugs](https://github.com/your-username/tls-cert-expiry-radar/issues)
+- 💬 **GitHub Discussions**: [Ask Questions](https://github.com/SiteQ8/tls-cert-expiry-radar/discussions)
+- 🐛 **Issues**: [Report Bugs](https://github.com/SiteQ8/tls-cert-expiry-radar/issues)
 - 💼 **LinkedIn**: [Connect](https://www.linkedin.com/in/alenizi/)
 
 ---
@@ -409,7 +409,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 If this project helped you, please give it a ⭐ star on GitHub!
 
-[![GitHub stars](https://img.shields.io/github/stars/your-username/tls-cert-expiry-radar?style=social)](https://github.com/your-username/tls-cert-expiry-radar/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/SiteQ8/tls-cert-expiry-radar?style=social)](https://github.com/SiteQ8/tls-cert-expiry-radar/stargazers)
 
 ---
 
