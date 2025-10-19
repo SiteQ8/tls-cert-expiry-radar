@@ -423,6 +423,6 @@ If this project helped you, please give it a ⭐ star on GitHub!
 
 **Built with ❤️ for the DevOps and Security community**
 
-[⬆ Back to Top](#-tls-cert-expiry-radar)
+[⬆ Back to Top](#tls-cert-expiry-radar)
 
 </div>
