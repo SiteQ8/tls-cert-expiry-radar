@@ -1107,7 +1107,7 @@ a:hover {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(var(--color-brown-600-rgb), 0.95);
+  background: rgba(var(--color-white-rgb), 0.95);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--color-card-border);
 }
