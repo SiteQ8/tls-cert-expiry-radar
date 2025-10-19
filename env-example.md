@@ -1,0 +1,71 @@
+# Environment Variables Template
+# Copy this file to .env.local and fill in your values
+
+# Application
+NODE_ENV=development
+PORT=3000
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# Database (Optional - for full version)
+# DATABASE_URL=mongodb://localhost:27017/tls-cert-radar
+# or
+# DATABASE_URL=postgresql://user:password@localhost:5432/tls_cert_radar
+
+# Notification Services
+# Email (SMTP)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your-email@example.com
+SMTP_PASSWORD=your-app-password
+SMTP_FROM=TLS Cert Radar <noreply@example.com>
+
+# Slack
+SLACK_WEBHOOK_URL=https://hooks.slack.com/services/YOUR/WEBHOOK/URL
+SLACK_CHANNEL=#alerts
+
+# Microsoft Teams
+TEAMS_WEBHOOK_URL=https://outlook.office.com/webhook/YOUR-WEBHOOK-URL
+
+# Twilio (SMS)
+TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+TWILIO_AUTH_TOKEN=your-auth-token
+TWILIO_PHONE_NUMBER=+1234567890
+
+# GitHub
+GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+GITHUB_REPO_OWNER=SiteQ8
+GITHUB_REPO_NAME=tls-cert-expiry-radar
+
+# PagerDuty
+PAGERDUTY_INTEGRATION_KEY=your-integration-key
+
+# Telegram
+TELEGRAM_BOT_TOKEN=123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11
+TELEGRAM_CHAT_ID=-1001234567890
+
+# Certificate Scanning
+SCAN_TIMEOUT=10000
+SCAN_CONCURRENCY=10
+CT_LOG_URLS=https://ct.googleapis.com/logs/argon2024/
+
+# Alert Thresholds (days)
+THRESHOLD_WARNING=60
+THRESHOLD_CRITICAL=30
+THRESHOLD_EMERGENCY=7
+
+# Features
+ENABLE_AUTO_RENEWAL=false
+ENABLE_CT_LOGS=true
+ENABLE_DNS_DISCOVERY=true
+
+# Security
+JWT_SECRET=your-super-secret-jwt-key-change-this
+ENCRYPTION_KEY=your-32-character-encryption-key
+
+# Analytics (Optional)
+# GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
+# SENTRY_DSN=https://xxxxx@sentry.io/xxxxx
+
+# Rate Limiting
+RATE_LIMIT_WINDOW_MS=900000
+RATE_LIMIT_MAX_REQUESTS=100
