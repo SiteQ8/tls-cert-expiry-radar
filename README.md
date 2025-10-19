@@ -147,9 +147,6 @@ Geographic visualization of certificates by server location with real-time statu
 ### Timeline View
 ![Timeline of upcoming certificate expirations](docs/assets/timeline-demo.png)
 
-### Alert Configuration
-![Configure notification channels and thresholds](docs/assets/alerts-demo.png)
-
 ---
 
 ## 🛠️ Tech Stack
