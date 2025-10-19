@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/alenizi/)
 
-[🎮 Try Live Demo](#) | [📖 Documentation](#features) | [🤝 Contributing](#contributing) | [💬 Support](#support)
+[🎮 Try Live Demo](https://img.shields.io/github/stars/SiteQ8/tls-cert-expiry-radar) | [📖 Documentation](#features) | [🤝 Contributing](#contributing) | [💬 Support](#support)
 
 </div>
 
