@@ -41,6 +41,7 @@
                 <span></span>
                 <span></span>
             </div>
+            <button class="btn--icon nav__theme-toggle" id="theme-toggle" title="Toggle Dark Mode">🌙</button>
         </nav>
     </header>
 
@@ -48,6 +49,7 @@
     <section class="hero">
         <div class="container">
             <div class="hero__content">
+                <div class="hero__badge">v2.0 — New</div>
                 <h1 class="hero__title">TLS Certificate Expiry Radar</h1>
                 <p class="hero__subtitle">Monitor, track, and manage SSL/TLS certificate expiry dates with powerful visualizations and real-time alerts.</p>
                 <div class="hero__actions">
@@ -64,6 +66,21 @@
         </div>
     </section>
 
+    <!-- Domain Scanner -->
+    <section class="scanner" id="scanner">
+        <div class="container">
+            <div class="scanner__box">
+                <h3 class="scanner__title">🔍 Quick Domain Scanner</h3>
+                <p class="scanner__desc">Enter domains to check their TLS certificate status (comma-separated)</p>
+                <div class="scanner__input-row">
+                    <input type="text" class="scanner__input" id="domain-input" placeholder="e.g. google.com, github.com, cloudflare.com" />
+                    <button class="btn btn--primary" id="scanner-go">Scan</button>
+                </div>
+                <div class="scanner__results" id="scanner-results"></div>
+            </div>
+        </div>
+    </section>
+
     <!-- Stats Bar -->
     <section class="stats">
         <div class="container">
@@ -71,7 +88,7 @@
                 <div class="stat-card">
                     <div class="stat-card__icon stat-card__icon--total">📊</div>
                     <div class="stat-card__content">
-                        <div class="stat-card__number" id="total-certs">8</div>
+                        <div class="stat-card__number" id="total-certs">12</div>
                         <div class="stat-card__label">Total Certificates</div>
                     </div>
                 </div>
@@ -79,7 +96,7 @@
                 <div class="stat-card">
                     <div class="stat-card__icon stat-card__icon--safe">✅</div>
                     <div class="stat-card__content">
-                        <div class="stat-card__number" id="safe-certs">3</div>
+                        <div class="stat-card__number" id="safe-certs">5</div>
                         <div class="stat-card__label">Safe (&gt;60 days)</div>
                     </div>
                 </div>
@@ -87,7 +104,7 @@
                 <div class="stat-card">
                     <div class="stat-card__icon stat-card__icon--warning">⚠️</div>
                     <div class="stat-card__content">
-                        <div class="stat-card__number" id="warning-certs">3</div>
+                        <div class="stat-card__number" id="warning-certs">4</div>
                         <div class="stat-card__label">Warning (30-60 days)</div>
                     </div>
                 </div>
@@ -95,7 +112,7 @@
                 <div class="stat-card">
                     <div class="stat-card__icon stat-card__icon--critical">🚨</div>
                     <div class="stat-card__content">
-                        <div class="stat-card__number" id="critical-certs">2</div>
+                        <div class="stat-card__number" id="critical-certs">3</div>
                         <div class="stat-card__label">Critical (&lt;30 days)</div>
                     </div>
                 </div>
@@ -112,8 +129,22 @@
             </div>
             
             <div class="dashboard__content">
-                <div class="radar-container">
-                    <canvas id="radar-chart"></canvas>
+                <div class="dashboard__charts-row">
+                    <div class="radar-container">
+                        <h3 class="chart__title">Expiry Status Radar</h3>
+                        <canvas id="radar-chart"></canvas>
+                    </div>
+                    <div class="doughnut-container">
+                        <h3 class="chart__title">Status Distribution</h3>
+                        <canvas id="doughnut-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="dashboard__bar-section">
+                    <h3 class="chart__title">Days Until Expiry by Certificate</h3>
+                    <div class="bar-container">
+                        <canvas id="bar-chart"></canvas>
+                    </div>
                 </div>
                 
                 <div class="dashboard__sidebar">
@@ -158,6 +189,21 @@
             <div class="section-header">
                 <h2 class="section-title">Certificate Timeline</h2>
                 <p class="section-subtitle">Detailed view of certificates sorted by expiry urgency</p>
+            </div>
+            
+            <div class="timeline__controls">
+                <input type="text" class="timeline__search" id="timeline-search" placeholder="🔍 Search domains...">
+                <select class="timeline__filter" id="timeline-filter">
+                    <option value="all">All Status</option>
+                    <option value="critical">🚨 Critical</option>
+                    <option value="warning">⚠️ Warning</option>
+                    <option value="safe">✅ Safe</option>
+                </select>
+                <select class="timeline__sort" id="timeline-sort">
+                    <option value="urgency">Sort: Most Urgent</option>
+                    <option value="domain">Sort: Domain A-Z</option>
+                    <option value="issuer">Sort: Issuer</option>
+                </select>
             </div>
             
             <div class="timeline__content" id="timeline-content">
@@ -265,7 +311,7 @@
             
             <div class="footer__bottom">
                 <p class="footer__copyright">
-                    &copy; 2025 Ali AlEnezi. Licensed under MIT License.
+                    &copy; 2026 Ali AlEnezi (@SiteQ8). Licensed under MIT License. v2.0
                 </p>
             </div>
         </div>

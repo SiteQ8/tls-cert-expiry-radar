@@ -141,6 +141,35 @@ const certificatesData = {
   }
 };
 
+// Additional demo data for v2
+certificatesData.certificates.push(
+  {
+    id: 9, domain: 'payments.fintech.sa', issuer: 'DigiCert', validFrom: '2024-11-01', validUntil: '2026-02-15',
+    daysUntilExpiry: 105, status: 'safe',
+    location: { lat: 24.7136, lng: 46.6753, city: 'Riyadh, Saudi Arabia' },
+    algorithm: 'ECDSA P-256', sans: ['payments.fintech.sa', 'api.fintech.sa']
+  },
+  {
+    id: 10, domain: 'portal.gov.kw', issuer: 'GlobalSign', validFrom: '2024-06-15', validUntil: '2025-11-10',
+    daysUntilExpiry: 22, status: 'critical',
+    location: { lat: 29.3759, lng: 47.9774, city: 'Kuwait City, Kuwait' },
+    algorithm: 'RSA-4096', sans: ['portal.gov.kw', 'services.gov.kw']
+  },
+  {
+    id: 11, domain: 'cloud.enterprise.ae', issuer: 'Let\'s Encrypt', validFrom: '2024-10-20', validUntil: '2025-12-20',
+    daysUntilExpiry: 62, status: 'safe',
+    location: { lat: 25.2048, lng: 55.2708, city: 'Dubai, UAE' },
+    algorithm: 'RSA-2048', sans: ['cloud.enterprise.ae', '*.cloud.enterprise.ae']
+  },
+  {
+    id: 12, domain: 'staging.app.io', issuer: 'ZeroSSL', validFrom: '2024-09-05', validUntil: '2025-11-15',
+    daysUntilExpiry: 45, status: 'warning',
+    location: { lat: 37.5665, lng: 126.9780, city: 'Seoul, South Korea' },
+    algorithm: 'ECDSA P-256', sans: ['staging.app.io']
+  }
+);
+certificatesData.statistics = { total: 12, safe: 5, warning: 4, critical: 3 };
+
 // Application state
 let appState = {
   certificates: certificatesData.certificates,
@@ -164,10 +193,15 @@ const chartColors = {
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
   initializeNavigation();
+  initializeDarkMode();
   initializeRadarChart();
+  initializeDoughnutChart();
+  initializeBarChart();
   initializeTimeline();
   initializeMap();
   initializeEventListeners();
+  initializeScanner();
+  initializeTimelineControls();
   updateStatistics();
 });
 
@@ -362,6 +396,9 @@ function createCertificateCard(cert) {
           ${cert.sans.map(san => `<span class="cert-card__san">${san}</span>`).join('')}
         </div>
       </div>
+    </div>
+    <div class="cert-card__expiry-bar">
+      <div class="cert-card__expiry-bar-fill" style="width:${Math.min(100, cert.daysUntilExpiry / 1.2)}%;background:${chartColors[cert.status]}"></div>
     </div>
   `;
 
@@ -649,6 +686,216 @@ document.addEventListener('keydown', (e) => {
     }
   }
 });
+
+// ═══════════════════════════════════════════════════════════════════════════
+// v2.0 Features
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Dark mode toggle
+function initializeDarkMode() {
+  const toggleBtn = document.getElementById('theme-toggle');
+  const stored = localStorage.getItem('tls-radar-theme');
+  if (stored === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    if (toggleBtn) toggleBtn.textContent = '☀️';
+  }
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      document.documentElement.setAttribute('data-theme', isDark ? '' : 'dark');
+      toggleBtn.textContent = isDark ? '🌙' : '☀️';
+      try { localStorage.setItem('tls-radar-theme', isDark ? 'light' : 'dark'); } catch(e) {}
+    });
+  }
+}
+
+// Doughnut chart
+function initializeDoughnutChart() {
+  const ctx = document.getElementById('doughnut-chart');
+  if (!ctx) return;
+
+  if (window.doughnutChartInstance) window.doughnutChartInstance.destroy();
+
+  const stats = appState.statistics;
+  window.doughnutChartInstance = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Safe (>60d)', 'Warning (30-60d)', 'Critical (<30d)'],
+      datasets: [{
+        data: [stats.safe, stats.warning, stats.critical],
+        backgroundColor: ['#10b981', '#f59e0b', '#ef4444'],
+        borderWidth: 3,
+        borderColor: document.documentElement.getAttribute('data-theme') === 'dark' ? '#1a2332' : '#ffffff'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      cutout: '65%',
+      plugins: {
+        legend: { position: 'bottom', labels: { padding: 16 } }
+      }
+    }
+  });
+}
+
+// Bar chart: days until expiry per certificate
+function initializeBarChart() {
+  const ctx = document.getElementById('bar-chart');
+  if (!ctx) return;
+
+  if (window.barChartInstance) window.barChartInstance.destroy();
+
+  const sorted = [...appState.certificates].sort((a, b) => a.daysUntilExpiry - b.daysUntilExpiry);
+
+  window.barChartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: sorted.map(c => c.domain),
+      datasets: [{
+        label: 'Days Until Expiry',
+        data: sorted.map(c => c.daysUntilExpiry),
+        backgroundColor: sorted.map(c => ({
+          safe: '#10b98180', warning: '#f59e0b80', critical: '#ef444480'
+        }[c.status])),
+        borderColor: sorted.map(c => ({
+          safe: '#10b981', warning: '#f59e0b', critical: '#ef4444'
+        }[c.status])),
+        borderWidth: 2,
+        borderRadius: 4
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
+        y: { grid: { display: false }, ticks: { font: { size: 11, family: 'monospace' } } }
+      },
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+
+// Domain scanner
+function initializeScanner() {
+  const goBtn = document.getElementById('scanner-go');
+  const input = document.getElementById('domain-input');
+  const results = document.getElementById('scanner-results');
+
+  if (goBtn && input && results) {
+    const doScan = () => {
+      const raw = input.value.trim();
+      if (!raw) return;
+      const domains = raw.split(',').map(d => d.trim()).filter(Boolean);
+      results.innerHTML = '<p style="color:#6b7280;">Scanning ' + domains.length + ' domain(s)...</p>';
+      
+      setTimeout(() => {
+        results.innerHTML = domains.map(d => {
+          const days = Math.floor(Math.random() * 180) + 1;
+          const status = days > 60 ? 'safe' : days > 30 ? 'warning' : 'critical';
+          const icon = { safe: '✅', warning: '⚠️', critical: '🚨' }[status];
+          return '<div class="scanner__result-item scanner__result-item--' + status + '">' +
+            '<span>' + icon + ' ' + d + '</span>' +
+            '<span>' + days + ' days left</span>' +
+          '</div>';
+        }).join('');
+        showToast('Scanned ' + domains.length + ' domain(s)', 'success');
+      }, 800 + Math.random() * 700);
+    };
+
+    goBtn.addEventListener('click', doScan);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') doScan(); });
+  }
+}
+
+// Timeline search, filter, sort
+function initializeTimelineControls() {
+  const searchEl = document.getElementById('timeline-search');
+  const filterEl = document.getElementById('timeline-filter');
+  const sortEl = document.getElementById('timeline-sort');
+
+  const refresh = () => {
+    const query = (searchEl?.value || '').toLowerCase();
+    const statusFilter = filterEl?.value || 'all';
+    const sortBy = sortEl?.value || 'urgency';
+
+    let certs = [...appState.certificates];
+
+    // Filter
+    if (query) certs = certs.filter(c => c.domain.toLowerCase().includes(query) || c.issuer.toLowerCase().includes(query));
+    if (statusFilter !== 'all') certs = certs.filter(c => c.status === statusFilter);
+
+    // Sort
+    if (sortBy === 'urgency') certs.sort((a, b) => a.daysUntilExpiry - b.daysUntilExpiry);
+    else if (sortBy === 'domain') certs.sort((a, b) => a.domain.localeCompare(b.domain));
+    else if (sortBy === 'issuer') certs.sort((a, b) => a.issuer.localeCompare(b.issuer));
+
+    const container = document.getElementById('timeline-content');
+    if (container) {
+      container.innerHTML = '';
+      if (certs.length === 0) {
+        container.innerHTML = '<p style="text-align:center;color:#6b7280;padding:2rem;">No certificates match your filter.</p>';
+      } else {
+        certs.forEach(c => container.appendChild(createCertificateCard(c)));
+      }
+    }
+  };
+
+  if (searchEl) searchEl.addEventListener('input', refresh);
+  if (filterEl) filterEl.addEventListener('change', refresh);
+  if (sortEl) sortEl.addEventListener('change', refresh);
+}
+
+// Toast notification
+function showToast(message, type) {
+  type = type || 'info';
+  const toast = document.createElement('div');
+  toast.className = 'toast-notification toast-notification--' + type;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 3200);
+}
+
+// Override simulateScan to use toast
+(function() {
+  const origScan = window.simulateScan;
+  window.simulateScan = function() {
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+      loadingOverlay.classList.add('active');
+      setTimeout(() => {
+        loadingOverlay.classList.remove('active');
+        appState.certificates.forEach(cert => {
+          if (Math.random() > 0.5) {
+            cert.daysUntilExpiry = Math.max(1, cert.daysUntilExpiry + Math.floor(Math.random() * 10 - 5));
+            cert.status = getStatusFromDays(cert.daysUntilExpiry);
+          }
+        });
+        updateStatistics();
+        refreshAllViews();
+        showToast('Certificate scan completed! ' + appState.certificates.length + ' certificates updated.', 'success');
+      }, 2000);
+    }
+  };
+  // Rebind the scan button
+  document.addEventListener('DOMContentLoaded', () => {
+    const scanBtn = document.getElementById('scan-btn');
+    if (scanBtn) {
+      scanBtn.removeEventListener('click', origScan);
+      scanBtn.addEventListener('click', window.simulateScan);
+    }
+  });
+})();
+
+// Override refreshAllViews to include v2 charts
+const _origRefreshAllViews = refreshAllViews;
+refreshAllViews = function() {
+  _origRefreshAllViews();
+  initializeDoughnutChart();
+  initializeBarChart();
+};
 
 // Export for potential use in other modules
 if (typeof module !== 'undefined' && module.exports) {

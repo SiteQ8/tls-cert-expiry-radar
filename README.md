@@ -310,21 +310,33 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ## 🗺️ Roadmap
 
-### ✅ Version 1.0 (Current)
+### ✅ Version 1.0
 - [x] Core certificate scanning
 - [x] Radar and timeline visualizations
 - [x] Basic notifications (email, Slack)
 - [x] GitHub Actions integration
 - [x] Mobile-responsive UI
 
-### 🚧 Version 1.5 (Q4 2025)
+### ✅ Version 2.0 (Current)
+- [x] Quick Domain Scanner input with live results
+- [x] Doughnut chart (status distribution)
+- [x] Horizontal bar chart (days until expiry per cert)
+- [x] Dark mode toggle with persistence
+- [x] Timeline search, filter by status, sort by urgency/domain/issuer
+- [x] Toast notification system
+- [x] Expanded demo data (12 certificates, 8 global locations)
+- [x] Expiry progress bars on certificate cards
+- [x] Updated UI with v2 badge, scanner section, charts row
+- [x] Enhanced community files (SECURITY, CONTRIBUTING, CODE_OF_CONDUCT)
+
+### 🚧 Version 2.5 (Q3 2026)
 - [ ] Browser extension for instant checks
 - [ ] Certificate pinning detection
 - [ ] OCSP stapling analysis
 - [ ] Multi-tenant support
 - [ ] Advanced filtering and search
 
-### 🎯 Version 2.0 (2026)
+### 🎯 Version 3.0 (2027)
 - [ ] Machine learning for renewal prediction
 - [ ] Automated ACME renewal workflows
 - [ ] Certificate authority health monitoring
