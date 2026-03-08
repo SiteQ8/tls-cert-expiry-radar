@@ -1,4 +1,4 @@
-# 🛡️ TLS Cert Expiry Radar
+# TLS Cert Expiry Radar
 
 <div align="center">
 
