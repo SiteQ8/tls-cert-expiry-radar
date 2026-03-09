@@ -195,4 +195,4 @@ By contributing, you agree that your contributions will be licensed under the MI
 
 **Thank you for making TLS Cert Expiry Radar better! 🚀**
 
-Built with ❤️ by [Ali AlEnezi](https://www.linkedin.com/in/alenizi/) and contributors.
+Built by [Ali AlEnezi](https://www.linkedin.com/in/alenizi/) and contributors.
