@@ -606,8 +606,7 @@ function saveAlertSettings() {
 
 // Refresh data
 function refreshData() {
-  // In a real app, this would fetch new data from the server
-  // For demo, we'll just refresh the views
+  // Static data, so only the views are refreshed
   refreshAllViews();
   alert('Data refreshed!');
 }
@@ -649,14 +648,14 @@ function refreshAllViews() {
   // Update timeline
   initializeTimeline();
   
-  // Update map (reinitialize for simplicity)
+  // Update map (reinitialize)
   if (appState.map) {
     appState.map.remove();
     initializeMap();
   }
 }
 
-// Utility function to format dates
+// Format dates
 function formatDate(dateString) {
   const date = new Date(dateString);
   return date.toLocaleDateString('en-US', {
