@@ -4,7 +4,7 @@
 
 ![TLS Cert Expiry Radar Logo](https://img.shields.io/badge/🔐-TLS_Cert_Expiry_Radar-blue?style=for-the-badge)
 
-**Stay ahead of outages—never let an SSL certificate catch you off-guard.**
+**Stay ahead of outages, never let an SSL certificate catch you off-guard.**
 
 [![Live Demo](https://img.shields.io/badge/🚀-Live_Demo-success?style=for-the-badge)](https://SiteQ8.github.io/tls-cert-expiry-radar)
 [![GitHub Stars](https://img.shields.io/github/stars/SiteQ8/tls-cert-expiry-radar?style=for-the-badge)](https://github.com/SiteQ8/tls-cert-expiry-radar/stargazers)
@@ -17,13 +17,13 @@
 
 ---
 
-## 🎯 What is TLS Cert Expiry Radar?
+## What is TLS Cert Expiry Radar?
 
-A **zero-install**, **browser-first** web application that continuously discovers, monitors, and visualizes TLS/SSL certificates across your infrastructure—alerting you **before expiration** via multi-channel notifications and an interactive mobile-friendly dashboard.
+A **zero-install**, **browser-first** web application that continuously discovers, monitors, and visualizes TLS/SSL certificates across your infrastructure, alerting you **before expiration** via multi-channel notifications and an interactive mobile-friendly dashboard.
 
 **Never experience a certificate-related outage again.**
 
-### ✨ Why This Matters
+### Why This Matters
 
 - **68% of outages** are caused by expired certificates (Gartner 2024)
 - **Average downtime cost**: $5,600/minute for enterprises
@@ -32,7 +32,7 @@ A **zero-install**, **browser-first** web application that continuously discover
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Try the Demo (No Installation)
 
@@ -78,21 +78,21 @@ jobs:
 
 ---
 
-## 🌟 Features
+## Features
 
-### 📡 Automated Discovery
+### Automated Discovery
 - **DNS Zone Crawling**: Automatically discover all subdomains and associated certificates
-- **CT Log Integration**: Query Certificate Transparency logs for comprehensive coverage
+- **CT Log Integration**: Query Certificate Transparency logs for coverage
 - **Third-Party Detection**: Find certificates on CDNs, payment gateways, and external APIs
 - **Custom Endpoints**: Manually add specific IPs, ports, or non-standard TLS services
 
-### 📊 Visual Expiry Dashboard
+### Visual Expiry Dashboard
 
 #### **Radar View**
 Interactive circular radar chart plotting certificates by days until expiration:
-- 🟢 **Green Zone** (>60 days): Safe
-- 🟡 **Yellow Zone** (30-60 days): Warning
-- 🔴 **Red Zone** (<30 days): Critical
+- **Green Zone** (>60 days): Safe
+- **Yellow Zone** (30-60 days): Warning
+- **Red Zone** (<30 days): Critical
 
 #### **Timeline View**
 Chronological list of upcoming expirations with:
@@ -103,7 +103,7 @@ Chronological list of upcoming expirations with:
 #### **Global Map**
 Geographic visualization of certificates by server location with real-time status indicators.
 
-### 🔔 Multi-Channel Notifications
+### Multi-Channel Notifications
 
 | Channel | Support | Configuration |
 |---------|---------|---------------|
@@ -116,21 +116,21 @@ Geographic visualization of certificates by server location with real-time statu
 | PagerDuty | ✅ | Events API v2 |
 | Web Push | ✅ | Browser notifications |
 
-### 🤖 GitHub Actions & CI/CD
+### GitHub Actions & CI/CD
 
 - **Daily Scans**: Scheduled certificate monitoring with workflow reports
 - **PR Checks**: Validate certificates before deploying infrastructure changes
 - **Auto-Renewal**: Trigger ACME workflows for Let's Encrypt/ZeroSSL
 - **Status Badges**: Display certificate health in your README
 
-### 🔐 Security & Privacy
+### Security & Privacy
 
 - **No Data Storage**: Option to run fully client-side or self-hosted
 - **Encrypted Credentials**: All API keys encrypted at rest
 - **Audit Logs**: Full history of scans and notifications
 - **Role-Based Access**: Team permissions for enterprise deployments
 
-### 🎨 Mobile-First Design
+### Mobile-First Design
 
 - Responsive layout optimized for phones and tablets
 - Touch-friendly controls and gestures
@@ -139,7 +139,7 @@ Geographic visualization of certificates by server location with real-time statu
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 ### Radar View
 ![Radar Chart showing certificate expiry zones](docs/assets/radar-demo.png)
@@ -149,7 +149,7 @@ Geographic visualization of certificates by server location with real-time statu
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |-------|------------|
@@ -164,7 +164,7 @@ Geographic visualization of certificates by server location with real-time statu
 
 ---
 
-## 📦 Installation Options
+## Installation Options
 
 ### Option 1: Cloud-Hosted (Recommended)
 
@@ -200,7 +200,7 @@ Use as a monitoring tool without hosting:
 
 ---
 
-## 📖 Usage Examples
+## Usage Examples
 
 ### Scan Single Domain
 
@@ -252,7 +252,7 @@ resource "null_resource" "cert_check" {
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -284,17 +284,17 @@ resource "null_resource" "cert_check" {
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions from the community! Here's how you can help:
 
 ### Ways to Contribute
 
-- 🐛 **Report Bugs**: Open an issue with reproduction steps
-- 💡 **Feature Requests**: Suggest new capabilities
-- 📝 **Documentation**: Improve guides and examples
-- 🎨 **Design**: Enhance UI/UX
-- 🔧 **Code**: Submit pull requests
+- **Report Bugs**: Open an issue with reproduction steps
+- **Feature Requests**: Suggest new capabilities
+- **Documentation**: Improve guides and examples
+- **Design**: Enhance UI/UX
+- **Code**: Submit pull requests
 
 ### Development Workflow
 
@@ -308,16 +308,16 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ---
 
-## 🗺️ Roadmap
+## Roadmap
 
-### ✅ Version 1.0
+### Version 1.0
 - [x] Core certificate scanning
 - [x] Radar and timeline visualizations
 - [x] Basic notifications (email, Slack)
 - [x] GitHub Actions integration
 - [x] Mobile-responsive UI
 
-### ✅ Version 2.0 (Current)
+### Version 2.0 (Current)
 - [x] Quick Domain Scanner input with live results
 - [x] Doughnut chart (status distribution)
 - [x] Horizontal bar chart (days until expiry per cert)
@@ -329,14 +329,14 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 - [x] Updated UI with v2 badge, scanner section, charts row
 - [x] Enhanced community files (SECURITY, CONTRIBUTING, CODE_OF_CONDUCT)
 
-### 🚧 Version 2.5 (Q3 2026)
+### Version 2.5 (Q3 2026)
 - [ ] Browser extension for instant checks
 - [ ] Certificate pinning detection
 - [ ] OCSP stapling analysis
 - [ ] Multi-tenant support
 - [ ] Advanced filtering and search
 
-### 🎯 Version 3.0 (2027)
+### Version 3.0 (2027)
 - [ ] Machine learning for renewal prediction
 - [ ] Automated ACME renewal workflows
 - [ ] Certificate authority health monitoring
@@ -345,7 +345,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ---
 
-## 📊 Performance
+## Performance
 
 - **Scan Speed**: ~100ms per certificate (TLS handshake)
 - **Concurrent Scans**: 50 domains simultaneously
@@ -355,7 +355,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ---
 
-## 🔒 Security
+## Security
 
 ### Reporting Vulnerabilities
 
@@ -365,16 +365,16 @@ See [SECURITY.md](SECURITY.md) for our security policy and responsible disclosur
 
 ### Security Features
 
-- 🔐 API keys encrypted with AES-256
-- 🔒 HTTPS-only communication
-- 🛡️ Rate limiting on all endpoints
-- 📝 Comprehensive audit logs
-- 🔍 Regular dependency scanning
+- API keys encrypted with AES-256
+- HTTPS-only communication
+- Rate limiting on all endpoints
+- Comprehensive audit logs
+- Regular dependency scanning
 - ✅ No storage of certificate private keys
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
@@ -386,7 +386,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ---
 
-## 💖 Acknowledgments
+## Acknowledgments
 
 - **Certificate Transparency Logs**: Google, Cloudflare, DigiCert
 - **Open Source Community**: All contributors and supporters
@@ -394,40 +394,32 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ---
 
-## 👤 Author
+## Author
 
 **Ali AlEnezi**
 
-- 🌐 Website: [3li.info](https://3li.info)
-- 💼 LinkedIn: [linkedin.com/in/alenizi](https://www.linkedin.com/in/alenizi/)
-- 📧 Email: Site@hotmail.com
-- 🐙 GitHub: [@SiteQ8](https://github.com/SiteQ8)
+- Website: [3li.info](https://3li.info)
+- LinkedIn: [linkedin.com/in/alenizi](https://www.linkedin.com/in/alenizi/)
+- Email: Site@hotmail.com
+- GitHub: [@SiteQ8](https://github.com/SiteQ8)
 
 ---
 
-## 📞 Support
+## Support
 
-- 📖 **Documentation**: [View Docs](docs/)
-- 💬 **GitHub Discussions**: [Ask Questions](https://github.com/SiteQ8/tls-cert-expiry-radar/discussions)
-- 🐛 **Issues**: [Report Bugs](https://github.com/SiteQ8/tls-cert-expiry-radar/issues)
-- 💼 **LinkedIn**: [Connect](https://www.linkedin.com/in/alenizi/)
-
----
-
-## ⭐ Show Your Support
-
-If this project helped you, please give it a ⭐ star on GitHub!
-
-[![GitHub stars](https://img.shields.io/github/stars/SiteQ8/tls-cert-expiry-radar?style=social)](https://github.com/SiteQ8/tls-cert-expiry-radar/stargazers)
+- **Documentation**: [View Docs](docs/)
+- **GitHub Discussions**: [Ask Questions](https://github.com/SiteQ8/tls-cert-expiry-radar/discussions)
+- **Issues**: [Report Bugs](https://github.com/SiteQ8/tls-cert-expiry-radar/issues)
+- **LinkedIn**: [Connect](https://www.linkedin.com/in/alenizi/)
 
 ---
 
-## 🎉 Fun Facts
+## Fun Facts
 
-- 🎯 Monitors 1M+ certificates across 50K+ domains daily
-- 🚀 Prevented 12,000+ potential outages in beta testing
-- 🌍 Used by organizations in 45+ countries
-- ⚡ Saved teams an average of 15 hours/month in manual checks
+- Monitors 1M+ certificates across 50K+ domains daily
+- Prevented 12,000+ potential outages in beta testing
+- Used by organizations in 45+ countries
+- Saved teams an average of 15 hours/month in manual checks
 
 ---
 
